@@ -7,7 +7,7 @@ export default class App extends Component {
   }
 
   addSource(options) {
-
+    console.log(options);
   }
 
   render() {

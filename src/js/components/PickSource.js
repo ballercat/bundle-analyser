@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
-import { map } from 'rambda';
+import { map, filter, compose, fromPairs } from 'ramda';
 import '../../scss/components/PickSource';
+
+const getPairs = map(input => [input.name, input.value]);
+const getInputs = filter(el => el.type === 'text');
+const serialize = compose(fromPairs, getPairs, getInputs);
+
+const Group = (props) => (
+  <li className="PickSource-group">
+    <label>{props.label}</label>
+    {props.children}
+  </li>
+);
+
+const TextInput = (props) => (
+  <input type="text"
+         className="PickSource-divided"
+         name={props.name}
+         placeholder={props.placeholder}>
+  </input>
+);
 
 export default class PickSource extends Component {
 
   submit(e) {
     if (typeof this.props.onSubmit === 'function') {
-      this.props.onSubmit();
+      e.preventDefault();
+      this.props.onSubmit(serialize(e.target.elements));
     }
   }
 
@@ -14,11 +34,10 @@ export default class PickSource extends Component {
     return (
       <form className="PickSource" onSubmit={this.submit.bind(this)}>
         <ul>
-          <li className="PickSource-group">
-            <label>Pick a Source to analyse</label>
-            <input type="text" className="PickSource-divided" name="source" placeholder="Source"></input>
-            <input type="text" className="PickSource-divided" name="entry" placeholder="Entry point (optional)"></input>
-          </li>
+          <Group label={'Pick a Source to analyse'}>
+            <TextInput name={"source"} placeholder={"Source"} />
+            <TextInput name={"entry"} placeholder={"Entry point (optional)"} />
+          </Group>
 
 
           <li className="PickSource-group">
