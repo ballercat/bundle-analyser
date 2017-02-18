@@ -15,7 +15,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json', '.scss']
   },
 
   module: {
@@ -28,6 +28,10 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'file-loader?name=[name].[ext]',
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   }
