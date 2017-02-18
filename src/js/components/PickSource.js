@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import { map } from 'rambda';
 import '../../scss/components/PickSource';
 
 export default class PickSource extends Component {
+
+  submit(e) {
+    if (typeof this.props.onSubmit === 'function') {
+      this.props.onSubmit();
+    }
+  }
+
   render() {
     return (
-      <form className="PickSource">
+      <form className="PickSource" onSubmit={this.submit.bind(this)}>
         <ul>
           <li className="PickSource-group">
             <label>Pick a Source to analyse</label>
