@@ -9,6 +9,7 @@
   "author": "Arthur Buldauskas",
   "license": "MIT",
   "devDependencies": {
+    "file-loader": "^0.10.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   }
