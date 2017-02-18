@@ -1,0 +1,11 @@
+{
+  "name": "bundle-analyser",
+  "version": "1.0.0",
+  "description": "Visualize JS bundles",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Arthur Buldauskas",
+  "license": "MIT"
+}
