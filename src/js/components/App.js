@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
 import PickSource from './PickSource';
 import Progress from './Progress';
-import Link from './Link';
-import {has} from 'ramda';
-import define from '../amd';
+import Factory from './Factory';
+import Module from './Module';
+import { has, map } from 'ramda';
+import '../../scss/components/ModuleList';
+
+const getModule = Factory(Module);
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false
+      loading: false,
+      modules: []
     };
 
-    window.define = define;
+    this.setModules = this.setModules.bind(this);
+  }
+
+  setModules(modules) {
+    this.setState({
+      modules: Object.keys(modules).map((name, index) => (getModule(modules[name]))),
+      loading: false
+    });
   }
 
   addSource(options) {
-    if (has('source', options)) {
-      this.setState({
-        ...options,
-        loading: !this.state.loading
-      });
+    if (!this.props.importScript  || !has('source', options)) {
+      return;
     }
-  }
 
-  source() {
-    if (this.state.source) {
-      return (
-        <Link source={this.state.source} />
-      );
-    }
+    this.setState({
+      ...options,
+      loading: !this.state.loading
+    });
+
+    this.props.importScript(options.source).then(this.setModules);
   }
 
   render() {
@@ -37,6 +44,10 @@ export default class App extends Component {
       <div className="App">
         <PickSource onSubmit={this.addSource.bind(this)} />
         <Progress loading={this.state.loading} />
+
+        <div className="ModuleList">
+          {this.state.modules}
+        </div>
       </div>
     );
   }
