@@ -1,9 +1,12 @@
+const path = require('path');
+
 module.exports = {
   context: __dirname + '/src',
 
+  devtool: 'source-map',
+
   entry: {
-    javascript: './index.js',
-    html: './index.html'
+    javascript: './js/index.js',
   },
 
   output: {
@@ -12,7 +15,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json']
   },
 
   module: {
@@ -20,11 +23,11 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader']
+        loaders: ['react-hot-loader', 'babel-loader']
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
+        loader: 'file-loader?name=[name].[ext]',
       }
     ]
   }
