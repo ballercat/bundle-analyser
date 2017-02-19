@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import {map} from 'ramda';
+import {map, curry} from 'ramda';
 import '../../scss/components/Module';
+
+const truncate = (max, str) => str.length > max ? str.substr(0, max - 3) + '...' : str;
+const getName = curry(truncate)(25);
 
 const Dependency = (props) => (
   <div className="Module">
@@ -14,17 +17,30 @@ const Dependency = (props) => (
 export default class Module extends Component {
   constructor(props) {
     super(props);
+    let state = {};
+
+    if (props.size) {
+      let sqr = Math.round(Math.sqrt(props.size));
+      state.style = {
+        height: `${200 + sqr * 2}px`,
+        width: `${200 + sqr * 2}px`
+      };
+    } else {
+      state.style = {
+        height: '200px',
+        width: '200px'
+      };
+    }
+
+    this.state = state;
   }
 
   render() {
     return (
-      <div className="Module">
-        <span className="Module-name">{this.props.name}</span>
+      <div className="Module" style={this.state.style}>
+        <span className="Module-name">{getName(this.props.name)}</span>
 
         <div className="ModuleList">
-          {this.props.deps.slice(1).map((module, index) => (
-            <Dependency key={index} {...module} />
-          ))}
         </div>
       </div>
     )

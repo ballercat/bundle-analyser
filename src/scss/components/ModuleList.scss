@@ -1,6 +1,7 @@
 .ModuleList {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-gap: 10px;
+  background-color: rgba(187, 183, 207, 0.22);
 }
 
