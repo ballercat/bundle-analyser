@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import PickSource from './PickSource';
 import Progress from './Progress';
-import Factory from './Factory';
-import Module from './Module';
-import { has, map } from 'ramda';
-import '../../scss/components/ModuleList';
-
-const getModule = (data, areaPerChar) => (
-  <Module {...data} areaPerChar={areaPerChar} />
-);
+import ModuleMap from './ModuleMap';
+import { has, map, curry } from 'ramda';
 
 export default class App extends Component {
   constructor(props) {
@@ -22,11 +16,8 @@ export default class App extends Component {
   }
 
   setModules(modules) {
-    let area = 100 * 100;
-    let totalChars = modules.reduce((acc, val) => val.size + acc, 0);
-    let areaPerChar = area / totalChars;
     this.setState({
-      modules: modules.map((module, index) => (getModule(module, areaPerChar))),
+      modules: modules,
       loading: false
     });
   }
@@ -50,9 +41,7 @@ export default class App extends Component {
         <PickSource onSubmit={this.addSource.bind(this)} />
         <Progress loading={this.state.loading} />
 
-        <div className="ModuleList" ref={(input) => this.list = input}>
-          {this.state.modules}
-        </div>
+        <ModuleMap modules={this.state.modules} />
       </div>
     );
   }
