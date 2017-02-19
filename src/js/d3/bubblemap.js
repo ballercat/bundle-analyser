@@ -40,7 +40,16 @@ const build = (data) => {
   node.append('circle')
     .attr('id', d => d.id)
     .attr('r', d => d.r)
-    .style('fill', d => color(d.id));
+    .style('fill', d => color(d.id))
+    .on('mouseover', function(d) {
+      d3.select(this).transition().duration(200)
+        .attr('r', d.r * 2);
+    })
+    .on('mouseout', function(d) {
+      d3.select(this).transition().duration(100)
+        .attr('r', d.r);
+    });
+
 
   node.append('clipPath')
     .attr('id', d => 'clip-' + d.id)
