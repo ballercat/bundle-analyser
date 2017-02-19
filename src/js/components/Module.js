@@ -5,6 +5,8 @@ import '../../scss/components/Module';
 const truncate = (max, str) => str.length > max ? str.substr(0, max - 3) + '...' : str;
 const getName = curry(truncate)(25);
 
+const baseSize = 10;
+
 const Dependency = (props) => (
   <div className="Module">
     <ul>
@@ -19,18 +21,12 @@ export default class Module extends Component {
     super(props);
     let state = {};
 
-    if (props.size) {
-      let sqr = Math.round(Math.sqrt(props.size));
-      state.style = {
-        height: `${200 + sqr * 2}px`,
-        width: `${200 + sqr * 2}px`
-      };
-    } else {
-      state.style = {
-        height: '200px',
-        width: '200px'
-      };
-    }
+    let sqr = this.props.size * this.props.areaPerChar;
+    sqr = Math.sqrt(sqr);
+    state.style = {
+      height: `${sqr}vh`,
+      width: `${sqr}vw`
+    };
 
     this.state = state;
   }

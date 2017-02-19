@@ -20,7 +20,9 @@ const importScript = (source) => new Promise((resolve) => {
   modules = [];
   let script = document.createElement('script');
   script.src = source;
-  script.onload = resolve.bind(null, modules);
+  script.onload = () => {
+    resolve(R.sort(R.prop('size'), R.values(modules)));
+  };
 
   document.head.appendChild(script);
 });

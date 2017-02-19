@@ -6,7 +6,9 @@ import Module from './Module';
 import { has, map } from 'ramda';
 import '../../scss/components/ModuleList';
 
-const getModule = Factory(Module);
+const getModule = (data, areaPerChar) => (
+  <Module {...data} areaPerChar={areaPerChar} />
+);
 
 export default class App extends Component {
   constructor(props) {
@@ -20,8 +22,11 @@ export default class App extends Component {
   }
 
   setModules(modules) {
+    let area = 100 * 100;
+    let totalChars = modules.reduce((acc, val) => val.size + acc, 0);
+    let areaPerChar = area / totalChars;
     this.setState({
-      modules: Object.keys(modules).map((name, index) => (getModule(modules[name]))),
+      modules: modules.map((module, index) => (getModule(module, areaPerChar))),
       loading: false
     });
   }
@@ -45,7 +50,7 @@ export default class App extends Component {
         <PickSource onSubmit={this.addSource.bind(this)} />
         <Progress loading={this.state.loading} />
 
-        <div className="ModuleList">
+        <div className="ModuleList" ref={(input) => this.list = input}>
           {this.state.modules}
         </div>
       </div>

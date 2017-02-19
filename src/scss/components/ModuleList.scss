@@ -1,7 +1,6 @@
 .ModuleList {
-  display: grid;
-  grid-template-columns: 100px 100px 100px;
-  grid-gap: 10px;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(187, 183, 207, 0.22);
 }
 
