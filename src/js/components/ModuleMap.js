@@ -14,13 +14,21 @@ export default class ModuleMap extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      d3: buildBubblemap(nextProps.modules)
+      d3: buildBubblemap(
+        nextProps.modules,
+        this.moduleList.offsetWidth,
+        this.moduleList.offsetHeight
+      )
     });
   }
 
   componentDidMount() {
     this.setState({
-      d3: buildBubblemap(this.props.modules)
+      d3: buildBubblemap(
+        this.props.modules,
+        this.moduleList.offsetWidth,
+        this.moduleList.offsetHeight
+      )
     });
   }
 

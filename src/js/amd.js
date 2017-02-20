@@ -2,17 +2,28 @@ import R from 'ramda';
 
 let modules = [];
 
-const define = function (name, deps, body) {
-  const module = modules[name] || {name: name, deps: [], body: '', size: 0};
-  if (arguments.length > 1) {
+const define = function (name, deps, body, ref) {
+  const module = modules[name] || {
+    name: name,
+    deps: [],
+    body: '',
+    size: 0,
+    refs: []
+  };
+  if (deps) {
     if (deps.length !== module.deps.length) {
-      module.deps = R.map(define, deps);
+      module.deps = R.map((m) => define(m, null, null, name), deps);
     }
     if (body.length !== module.body.length) {
       module.body = body;
-      module.size = body.toString().length;
+      module.size = Math.ceil(body.toString().length / 1024);
     }
   }
+
+  if (ref) {
+    module.refs.push(ref);
+  }
+
   return modules[name] = module;
 };
 

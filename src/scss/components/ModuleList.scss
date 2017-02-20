@@ -3,9 +3,21 @@
   height: 100vh;
   background-color: rgba(187, 183, 207, 0.22);
 }
-
+.tooltip {
+  line-height: 1;
+  font-weight: bold;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  padding: 12px;
+  background: white;
+  color: black;
+  border-radius: 2px;
+  border: 1px solid black;
+}
 text {
   font: 10px sans-serif;
   text-anchor: middle;
+  pointer-events: none;
 }
 
