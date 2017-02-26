@@ -13,27 +13,39 @@ export default class ModuleMap extends Component {
     };
   }
 
+  search(options) {
+    this.state.searchCallback(options);
+  }
+
   componentWillReceiveProps(nextProps) {
     const el = ReactDOM.findDOMNode(this);
+    const searchCallback = (cb) => {
+      this.setState({
+        searchCallback: (options) => cb(options)
+      });
+    };
     this.setState({
       d3: buildBubblemap({
         data: nextProps.modules,
         width: el.offsetWidth,
         height: el.offsetHeight,
-        search: this.props.searchTerm
+        searchCallback
       })
     });
   }
 
   componentDidMount() {
     const el = ReactDOM.findDOMNode(this);
+    const searchCallback = curry((cb, options) => cb(options));
     this.setState({
       d3: buildBubblemap({
         data: this.props.modules,
         width: el.offsetWidth,
         height: el.offsetHeight,
-        search: this.props.searchTerm
-      })
+        search: this.props.searchTerm,
+        searchCallback
+      }),
+      searchCallback
     });
   }
 

@@ -29,7 +29,7 @@ const build = (options) => {
     width,
     height,
     data,
-    search
+    searchCallback
   } = options;
 
   let target = document.createElement('div');
@@ -128,11 +128,21 @@ const build = (options) => {
     .append('use')
       .attr('xlink:href', d => '#' + d.id);
 
-  if (search) {
-    d3.selectAll('circle')
-      .filter((d) => d.data.name !== search)
-      .transition().duration(100)
-      .attr('fill-opacity', 1);
+  if (searchCallback) {
+    console.log('add search');
+    searchCallback((options) => {
+      console.log('searching', options);
+      d3.selectAll('circle')
+        .filter(d => d.data.name !== options.module)
+        .transition().duration(100)
+        .attr('stroke', 1)
+        .attr('fill-opacity', 0.1);
+      d3.selectAll('circle')
+        .filter((d) => d.data.name === options.module)
+        .transition().duration(200)
+        .attr('stroke', 'black')
+        .attr('fill-opacity', 1.0);
+    });
   }
 
   node.append('title')

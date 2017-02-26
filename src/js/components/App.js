@@ -36,12 +36,14 @@ export default class App extends Component {
   }
 
   searchModule(options) {
+    this.moduleMap.search(options);
   }
 
   render() {
     const moduleMap = this.state.modules ?
       <ModuleMap
         modules={this.state.modules}
+        ref={(el) => this.moduleMap = el}
       /> : null;
 
     return (
