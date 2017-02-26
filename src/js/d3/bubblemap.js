@@ -67,6 +67,28 @@ const build = (options) => {
     return R.pluck('name', d);
   }
 
+  const highlightNode = function(d) {
+    //tip.show.call(this, d);
+    const name = d.data.name;
+    const refs = d.data.refs;
+
+    d3.selectAll('circle')
+      .transition().duration(0).attr('stroke', 1).attr('fill-opacity', 1.0)
+      .filter((d) => {
+        if (name === d.data.name) {
+          return false;
+        }
+        return !R.contains(d.data.name, refs);
+      })
+      .transition().duration(100)
+      .attr('stroke', 1)
+      .attr('fill-opacity', 0.1);
+
+    d3.select(this).transition().duration(200)
+      .attr('stroke', 'black')
+      .attr('stroke-width', 3);
+  };
+
   const root = d3.hierarchy(noRoot)
     .sum(d => d.size ? d.size : 0)
     .sort((a, b) => a.refs ? a.refs.length * a.size - b.refs.length * b.size : 0)
@@ -88,28 +110,10 @@ const build = (options) => {
 
 
   node.append('circle')
-    .attr('id', d => d.id)
+    .attr('id', d => 'Module_' + d.data.name)
     .attr('r', d => d.r)
     .style('fill', d => color(d.id))
-    .on('mouseover', function(d) {
-      tip.show.call(this, d);
-      d3.select(this).transition().duration(200)
-        .attr('stroke', 'black')
-        .attr('stroke-width', 3);
-
-      const name = d.data.name;
-      const refs = d.data.refs;
-
-      d3.selectAll('circle')
-        .filter((d) => {
-          if (name === d.data.name) {
-            return false;
-          }
-          return !R.contains(d.data.name, refs);
-        })
-        .transition().duration(100)
-        .attr('fill-opacity', 0.1);
-    })
+    .on('mouseover', highlightNode)
     .on('mouseout', function(d) {
       tip.hide.call(this, d);
       d3.select(this).transition().duration(100)
@@ -129,19 +133,8 @@ const build = (options) => {
       .attr('xlink:href', d => '#' + d.id);
 
   if (searchCallback) {
-    console.log('add search');
     searchCallback((options) => {
-      console.log('searching', options);
-      d3.selectAll('circle')
-        .filter(d => d.data.name !== options.module)
-        .transition().duration(100)
-        .attr('stroke', 1)
-        .attr('fill-opacity', 0.1);
-      d3.selectAll('circle')
-        .filter((d) => d.data.name === options.module)
-        .transition().duration(200)
-        .attr('stroke', 'black')
-        .attr('fill-opacity', 1.0);
+      d3.select('#Module_' + options.module).select(highlightNode);
     });
   }
 
