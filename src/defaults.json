@@ -1,0 +1,47 @@
+{
+  "pick_source": {
+    "inputs": [
+      {
+        "type": "group",
+        "label": "Pick a Source to analyse",
+        "inputs": [
+          {
+            "type": "text-input",
+            "name": "source",
+            "placeholder": "Source"
+          },
+          {
+            "type": "text-input",
+            "name": "entry",
+            "placeholder": "Entry point (optional)"
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "inputs": [
+          {
+            "type": "submit",
+            "text": "Analyse"
+          }
+        ]
+      }
+    ]
+  },
+  "search_module": {
+    "inputs": [
+      {
+        "type": "group",
+        "label": "Search for module",
+        "inputs": [
+          {
+            "type": "text-input",
+            "name": "module",
+            "placeholder": "Search Module"
+          }
+        ]
+      }
+    ]
+
+  }
+}

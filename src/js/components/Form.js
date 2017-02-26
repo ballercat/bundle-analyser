@@ -17,37 +17,10 @@ import {
 } from 'ramda';
 import '../../scss/components/PickSource';
 
-const Group = (props) => (
-  <li className="PickSource-group">
-    <label>{props.label}</label>
-    {props.inputs ? mapToFormInputs(props.inputs) : null}
-  </li>
-);
-
-const TextInput = (props) => (
-  <input type="text"
-         className="PickSource-divided"
-         name={props.name}
-         placeholder={props.placeholder}>
-  </input>
-);
-
-const Button = (props) => (
-  <button type={props.type}
-          className="PickSource-submit">
-    {props.text}
-  </button>
-);
-
+const getPairs = map(input => [input.name, input.value]);
+const getInputs = filter(el => el.type === 'text');
+const serialize = compose(fromPairs, getPairs, getInputs);
 const noInstance = compose(isNil, prop('instance'));
-const toInput = curry(
-    (InputComponent, options) => merge(
-      options,
-      {
-        instance: <InputComponent {...options} />
-      }
-    )
-);
 const isTextInputType = compose(equals('text-input'), prop('type'));
 const toTextInput = toInput(TextInput);
 const getTextInput = when(both(isTextInputType, noInstance), toTextInput);
@@ -64,11 +37,40 @@ const getFormChild = compose(
   getButton,
   (options, index) => merge(options, {key: index})
 );
+const toInput = curry(
+    (InputComponent, options) => merge(
+      options,
+      {
+        instance: <InputComponent {...options} />
+      }
+    )
+);
 const mapToFormInputs = addIndex(map)(getFormChild);
 
-const getPairs = map(input => [input.name, input.value]);
-const getInputs = filter(el => el.type === 'text');
-const serialize = compose(fromPairs, getPairs, getInputs);
+// A group of inputs
+const Group = (props) => (
+  <li className="PickSource-group">
+    <label>{props.label}</label>
+    {props.inputs ? mapToFormInputs(props.inputs) : null}
+  </li>
+);
+
+// Input
+const TextInput = (props) => (
+  <input type="text"
+         className="PickSource-divided"
+         name={props.name}
+         placeholder={props.placeholder}>
+  </input>
+);
+
+// Button
+const Button = (props) => (
+  <button type={props.type}
+          className="PickSource-submit">
+    {props.text}
+  </button>
+);
 
 export default function(props) {
   const hasSubmit = not(isNil(props.onSubmit));

@@ -43,8 +43,6 @@ const build = (options) => {
 
   let uuid = 0;
 
-  svg.call(tip);
-
   const nonEmpty = data.filter((d) => !!d.size);
 
   const noRoot = {children: nonEmpty};
@@ -102,7 +100,6 @@ const build = (options) => {
     .style('fill', d => color(d.id))
     .on('mouseover', highlightNode)
     .on('mouseout', function(d) {
-      tip.hide.call(this, d);
       d3.select(this).transition().duration(100)
         .attr('stroke', 1);
 

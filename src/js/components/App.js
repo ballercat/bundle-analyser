@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from './Form';
 import Progress from './Progress';
 import ModuleMap from './ModuleMap';
+import appConfig from '../../defaults';
 import { has, map, curry } from 'ramda';
 
 export default class App extends Component {
@@ -50,35 +51,7 @@ export default class App extends Component {
       <div className="App">
         <Form
           onSubmit={this.addSource.bind(this)}
-          inputs={
-            [
-              {
-                type: 'group',
-                label: 'Pick a Source to analyse',
-                inputs: [
-                  {
-                    type: 'text-input',
-                    name: 'source',
-                    placeholder: 'Source'
-                  },
-                  {
-                    type: 'text-input',
-                    name: 'entry',
-                    placeholder: 'Entry point (optional)'
-                  }
-                ]
-              },
-              {
-                type: 'group',
-                inputs: [
-                  {
-                    type: 'submit',
-                    text: 'Analyse'
-                  }
-                ]
-              }
-            ]
-          }
+          inputs={appConfig.pick_source.inputs}
         />
         <Progress loading={this.state.loading} />
 
@@ -87,21 +60,7 @@ export default class App extends Component {
         { this.state.modules ?
             <Form
               onSubmit={this.searchModule.bind(this)}
-              inputs={
-                [
-                  {
-                    type: 'group',
-                    label: 'Search for module',
-                    inputs: [
-                      {
-                        type: 'text-input',
-                        name: 'module',
-                        placeholder: 'Search Module'
-                      }
-                    ]
-                  }
-                ]
-              }
+              inputs={appConfig.search_module.inputs}
             /> : null }
       </div>
     );
