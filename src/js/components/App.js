@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PickSource from './PickSource';
+import Form from './Form';
 import Progress from './Progress';
 import ModuleMap from './ModuleMap';
 import { has, map, curry } from 'ramda';
@@ -35,13 +35,68 @@ export default class App extends Component {
     this.props.importScript(options.source).then(this.setModules);
   }
 
+  searchModule(options) {
+    console.log(options, this.moduleMap);
+  }
+
   render() {
     return (
       <div className="App">
-        <PickSource onSubmit={this.addSource.bind(this)} />
+        <Form
+          onSubmit={this.addSource.bind(this)}
+          inputs={
+            [
+              {
+                type: 'group',
+                label: 'Pick a Source to analyse',
+                inputs: [
+                  {
+                    type: 'text-input',
+                    name: 'source',
+                    placeholder: 'Source'
+                  },
+                  {
+                    type: 'text-input',
+                    name: 'entry',
+                    placeholder: 'Entry point (optional)'
+                  }
+                ]
+              },
+              {
+                type: 'group',
+                inputs: [
+                  {
+                    type: 'submit',
+                    text: 'Analyse'
+                  }
+                ]
+              }
+            ]
+          }
+        />
         <Progress loading={this.state.loading} />
 
-        <ModuleMap modules={this.state.modules} />
+        <ModuleMap ref={(input) => this.moduleMap = input} modules={this.state.modules} />
+
+        { this.state.modules ?
+            <Form
+              onSubmit={this.searchModule.bind(this)}
+              inputs={
+                [
+                  {
+                    type: 'group',
+                    label: 'Search for module',
+                    inputs: [
+                      {
+                        type: 'text-input',
+                        name: 'module',
+                        placeholder: 'Search Module'
+                      }
+                    ]
+                  }
+                ]
+              }
+            /> : null }
       </div>
     );
   }

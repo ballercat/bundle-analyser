@@ -1,6 +1,18 @@
 import * as d3 from 'd3';
 import d3tip from 'd3-tip';
-import R, { map, curry, last, prop, compose, pluck, type } from 'ramda';
+import {
+  all,
+  not,
+  isNil,
+  map,
+  curry,
+  last,
+  prop,
+  compose,
+  pluck,
+  type,
+  values
+} from 'ramda';
 
 const truncate = (max, str) => str.length > max ? str.substr(0, max - 3) + '...' : str;
 const getName = curry(truncate)(10);
@@ -8,10 +20,16 @@ const getName = curry(truncate)(10);
 const sizeValue = sz => 10;
 const size = compose(sizeValue, prop('size'), prop('data'));
 
-const build = (data, width, height) => {
-  if (!data || (data && !data.length)) {
-    return data;
+const build = (options) => {
+  if (!all(isNil, values(options || {a: null}))) {
+    return options;
   }
+
+  const {
+    width,
+    height,
+    modules: data
+  } = options;
 
   let target = document.createElement('div');
 
@@ -108,22 +126,6 @@ const build = (data, width, height) => {
     .attr('id', d => 'clip-' + d.id)
     .append('use')
       .attr('xlink:href', d => '#' + d.id);
-
-  // node.append('text')
-  //   .attr('clip-path', d => `url(#clip-${d.id})`)
-  //   .selectAll('tspan')
-  //   .data(d => {
-  //     if (!(d.data.size > 4000)) {
-  //       return [];
-  //     }
-  //     return [last(d.data.name.split('/'))];
-  //   })
-  //   .enter().append('tspan')
-  //     .attr('x', 0)
-  //     .attr('y', (d, i, nodes) => 13 + (i - nodes.length / 2 - 0.4) * 10)
-  //     .text(d => {
-  //       return d;
-  //     });
 
   node.append('title')
     .text(d => d.data.name + '\n' + format(d.data.size));
