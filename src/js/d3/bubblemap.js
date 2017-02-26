@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import d3tip from 'd3-tip';
-import {
+import R, {
   all,
   not,
   isNil,
@@ -21,14 +21,15 @@ const sizeValue = sz => 10;
 const size = compose(sizeValue, prop('size'), prop('data'));
 
 const build = (options) => {
-  if (!all(isNil, values(options || {a: null}))) {
+  if (!options || !options.data) {
     return options;
   }
 
   const {
     width,
     height,
-    modules: data
+    data,
+    search
   } = options;
 
   let target = document.createElement('div');
@@ -126,6 +127,13 @@ const build = (options) => {
     .attr('id', d => 'clip-' + d.id)
     .append('use')
       .attr('xlink:href', d => '#' + d.id);
+
+  if (search) {
+    d3.selectAll('circle')
+      .filter((d) => d.data.name !== search)
+      .transition().duration(100)
+      .attr('fill-opacity', 1);
+  }
 
   node.append('title')
     .text(d => d.data.name + '\n' + format(d.data.size));

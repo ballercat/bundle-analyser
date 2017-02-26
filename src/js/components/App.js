@@ -36,10 +36,14 @@ export default class App extends Component {
   }
 
   searchModule(options) {
-    console.log(options, this.moduleMap);
   }
 
   render() {
+    const moduleMap = this.state.modules ?
+      <ModuleMap
+        modules={this.state.modules}
+      /> : null;
+
     return (
       <div className="App">
         <Form
@@ -76,7 +80,7 @@ export default class App extends Component {
         />
         <Progress loading={this.state.loading} />
 
-        <ModuleMap ref={(input) => this.moduleMap = input} modules={this.state.modules} />
+        { moduleMap }
 
         { this.state.modules ?
             <Form
