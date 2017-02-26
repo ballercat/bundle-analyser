@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import d3tip from 'd3-tip';
 import R, {
   all,
   not,
@@ -44,17 +43,6 @@ const build = (options) => {
 
   let uuid = 0;
 
-  const tip = d3tip()
-    .attr('class', 'tooltip')
-    //.offset([-10, 0])
-    .offset(function() {
-      return [0, 0];
-    })
-    .html(d => `<p>Module: ${d.data.name}</p>
-                <p>Size:   ${d.data.size}KB</p>
-                <p>Refs:   ${d.data.refs.length}</p>`
-    );
-
   svg.call(tip);
 
   const nonEmpty = data.filter((d) => !!d.size);
@@ -68,7 +56,6 @@ const build = (options) => {
   }
 
   const highlightNode = function(d) {
-    //tip.show.call(this, d);
     const name = d.data.name;
     const refs = d.data.refs;
 
