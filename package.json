@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "d3": "^4.5.1",
+    "immutable": "^3.8.1",
     "ramda": "^0.23.0",
     "react": "^15.4.2",
     "react-d3-library": "^1.1.7",

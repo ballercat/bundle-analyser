@@ -17,26 +17,6 @@ import {
 } from 'ramda';
 import '../../scss/components/PickSource';
 
-const getPairs = map(input => [input.name, input.value]);
-const getInputs = filter(el => el.type === 'text');
-const serialize = compose(fromPairs, getPairs, getInputs);
-const noInstance = compose(isNil, prop('instance'));
-const isTextInputType = compose(equals('text-input'), prop('type'));
-const toTextInput = toInput(TextInput);
-const getTextInput = when(both(isTextInputType, noInstance), toTextInput);
-const isGroupType = compose(equals('group'), prop('type'));
-const toGroup = toInput(Group);
-const getGroup = when(both(isGroupType, noInstance), toGroup);
-const isButtonType= compose(equals('submit'), prop('type'));
-const toButton = toInput(Button);
-const getButton = when(both(isButtonType, noInstance), toButton);
-const getFormChild = compose(
-  prop('instance'),
-  getGroup,
-  getTextInput,
-  getButton,
-  (options, index) => merge(options, {key: index})
-);
 const toInput = curry(
     (InputComponent, options) => merge(
       options,
@@ -45,7 +25,6 @@ const toInput = curry(
       }
     )
 );
-const mapToFormInputs = addIndex(map)(getFormChild);
 
 // A group of inputs
 const Group = (props) => (
@@ -71,6 +50,28 @@ const Button = (props) => (
     {props.text}
   </button>
 );
+const getPairs = map(input => [input.name, input.value]);
+const getInputs = filter(el => el.type === 'text');
+const serialize = compose(fromPairs, getPairs, getInputs);
+const noInstance = compose(isNil, prop('instance'));
+const isTextInputType = compose(equals('text-input'), prop('type'));
+const toTextInput = toInput(TextInput);
+const getTextInput = when(both(isTextInputType, noInstance), toTextInput);
+const isGroupType = compose(equals('group'), prop('type'));
+const toGroup = toInput(Group);
+const getGroup = when(both(isGroupType, noInstance), toGroup);
+const isButtonType= compose(equals('submit'), prop('type'));
+const toButton = toInput(Button);
+const getButton = when(both(isButtonType, noInstance), toButton);
+const getFormChild = compose(
+  prop('instance'),
+  getGroup,
+  getTextInput,
+  getButton,
+  (options, index) => merge(options, {key: index})
+);
+const mapToFormInputs = addIndex(map)(getFormChild);
+
 
 export default function(props) {
   const hasSubmit = not(isNil(props.onSubmit));
