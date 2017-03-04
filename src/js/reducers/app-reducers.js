@@ -8,13 +8,13 @@ import {
   curry
 } from 'ramda';
 
-const reducer = (state, action) {
+const reducer = curry((state, action) => {
   switch(action.type) {
     case FETCH_SCRIPT:
     default:
       return state;
   };
-}
+})
 
 export default (defaults) => {
 
