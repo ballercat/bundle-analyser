@@ -16,20 +16,26 @@ import {
 
 // Pick source form
 const PickSource = connect(
-  state => ({...state.get('pick_source')}),
+  state => ({...state.pick_source}),
   dispatch => bindActionCreators({onSubmit: fetchScript}, dispatch)
 )(Form);
 
 // Loading indicator
 const Loading = connect(
-  state => ({...state.get('progress')})
+  state => ({...state.progress})
 )(Progress);
+
+const Bundle = connect(
+  state => ({
+    modules: state.bundle.get('modules')
+  })
+)(ModuleMap);
 
 export default (props) => (
   <div className="App">
     <PickSource />
     <Loading />
-
+    <Bundle />
   </div>
 );
 

@@ -45,5 +45,8 @@
   },
   "progress": {
     "loading": false
+  },
+  "bundle": {
+    "modules": []
   }
 }

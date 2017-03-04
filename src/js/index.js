@@ -4,11 +4,9 @@ import App from './components/App';
 import {define, importScript} from './amd';
 import appConfig from '../defaults';
 import appReducers from './reducers/app-reducers';
-import { createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { connect, Provider } from 'react-redux';
-import { compose,
-  tap
-} from 'ramda';
+import thunk from 'redux-thunk';
 
 const rootEl = document.querySelector('#app');
 
@@ -16,16 +14,15 @@ if (!('define' in window)) {
   window.define = define;
 }
 
+let reduxCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  appReducers(appConfig),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  combineReducers(appReducers),
+  reduxCompose(
+    applyMiddleware(thunk)
+  )
 );
 const ConnectedApp = connect(
-  state => ({
-    pick_source: state.get('pick_source'),
-    search_module: state.get('search_module'),
-    progress: state.get('progress')
-  })
+  state => ({...state})
 )(App);
 
 render(

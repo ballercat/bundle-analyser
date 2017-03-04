@@ -2,7 +2,7 @@ import R from 'ramda';
 
 let modules = [];
 
-const define = function (name, deps, body, ref) {
+export const define = function (name, deps, body, ref) {
   const module = modules[name] || {
     name: name,
     deps: [],
@@ -27,7 +27,7 @@ const define = function (name, deps, body, ref) {
   return modules[name] = module;
 };
 
-const importScript = (source) => new Promise((resolve) => {
+export const importScript = (source) => new Promise((resolve) => {
   modules = [];
   let script = document.createElement('script');
   script.src = source;
@@ -37,9 +37,4 @@ const importScript = (source) => new Promise((resolve) => {
 
   document.head.appendChild(script);
 });
-
-export {
-  define,
-  importScript
-}
 
