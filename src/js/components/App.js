@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Form from './Form';
 import Progress from './Progress';
 import ModuleMap from './ModuleMap';
-import appConfig from '../../defaults';
+import { fetchScript } from '../reducers/app-reducers';
 import {
   has,
   map,
-  curry
+  curry,
+  prop,
+  tap,
+  compose
 } from 'ramda';
+
+const PickSource = connect(
+  compose(
+    o => o.get('pick_source'),
+    // tap(console.log)
+  )
+)(Form);
 
 const App = (props) => (
   <div className="App">
+    <PickSource onSubmit={(form) => props.dispatch(fetchScript(form))} />
   </div>
 );
 

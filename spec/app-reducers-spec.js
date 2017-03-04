@@ -1,9 +1,17 @@
 /* eslint-env jasmine */
-const reducerFactory = require('../src/js/reducers/app-reducers');
+import reducerFactory from '../src/js/reducers/app-reducers';
+import {
+  is
+} from 'ramda';
+
+const isFunction = is(Function);
 
 describe('App Reducer', () => {
 
-  it('is a function, returning a function', () => {
-    expect(reducerFactory).toBe(jasmine.any(Function));
+  it('is a function', () => {
+    expect(isFunction(reducerFactory)).toBe(true);
+  });
+  it('returns a function', () => {
+    expect(isFunction(reducerFactory())).toBe(true);
   });
 });

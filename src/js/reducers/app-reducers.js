@@ -8,15 +8,23 @@ import {
   curry
 } from 'ramda';
 
-const reducer = curry((state, action) => {
-  switch(action.type) {
-    case FETCH_SCRIPT:
-    default:
-      return state;
+const FETCH_SCRIPT = 'FETCH_SCRIPT';
+
+export const fetchScript = (form) => {
+  return {
+    type: FETCH_SCRIPT,
+    ...form
   };
-})
+};
 
-export default (defaults) => {
-
+export default defaults => {
+  return (state = Map(defaults), action) => {
+    switch(action.type) {
+      case FETCH_SCRIPT:
+        return state.set('loading', true);
+      default:
+        return state;
+    };
+  };
 }
 
