@@ -21,7 +21,7 @@ export default defaults => {
   return (state = Map(defaults), action) => {
     switch(action.type) {
       case FETCH_SCRIPT:
-        return state.set('loading', true);
+        return state.set('progress', { loading: true });
       default:
         return state;
     };

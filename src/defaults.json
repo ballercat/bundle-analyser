@@ -42,6 +42,8 @@
         ]
       }
     ]
-
+  },
+  "progress": {
+    "loading": false
   }
 }

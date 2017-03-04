@@ -16,12 +16,16 @@ if (!('define' in window)) {
   window.define = define;
 }
 
-const store = createStore(appReducers(appConfig));
+const store = createStore(
+  appReducers(appConfig),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 const ConnectedApp = connect(
-  compose(
-    o => o.toJS(),
-    // tap(console.log)
-  )
+  state => ({
+    pick_source: state.get('pick_source'),
+    search_module: state.get('search_module'),
+    progress: state.get('progress')
+  })
 )(App);
 
 render(

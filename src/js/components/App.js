@@ -13,55 +13,23 @@ import {
   compose
 } from 'ramda';
 
-const PickSource = connect(
-  compose(
-    o => o.get('pick_source'),
-    // tap(console.log)
-  )
-)(Form);
+const konsole = fn => compose(fn, tap(console.log));
 
-const App = (props) => (
+const PickSource = connect(
+  konsole(state => ({
+    ...state.get('pick_source')
+  }))
+)(Form);
+const Loading = connect(
+  state => ({
+    ...state.get('progress')
+  })
+)(Progress);
+
+export default App = (props) => (
   <div className="App">
     <PickSource onSubmit={(form) => props.dispatch(fetchScript(form))} />
+    <Loading />
   </div>
 );
 
-export default App;
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       loading: false,
-//       modules: []
-//     };
-//
-//     this.setModules = this.setModules.bind(this);
-//   }
-//
-//   render() {
-//     const moduleMap = this.state.modules ?
-//       <ModuleMap
-//         modules={this.state.modules}
-//         ref={(el) => this.moduleMap = el}
-//       /> : null;
-//
-//     return (
-//       <div className="App">
-//         <Form
-//           onSubmit={this.addSource.bind(this)}
-//           inputs={appConfig.pick_source.inputs}
-//         />
-//         <Progress loading={this.state.loading} />
-//
-//         { moduleMap }
-//
-//         { this.state.modules ?
-//             <Form
-//               onSubmit={this.searchModule.bind(this)}
-//               inputs={appConfig.search_module.inputs}
-//             /> : null }
-//       </div>
-//     );
-//   }
-// }
-//

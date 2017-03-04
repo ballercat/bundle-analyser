@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   not,
+  tap,
   both,
   isNil,
   curry,
@@ -16,6 +17,8 @@ import {
   addIndex
 } from 'ramda';
 import '../../scss/components/PickSource';
+
+const log = tap(console.log);
 
 const toInput = curry(
     (InputComponent, options) => merge(
@@ -71,7 +74,6 @@ const getFormChild = compose(
   (options, index) => merge(options, {key: index})
 );
 const mapToFormInputs = addIndex(map)(getFormChild);
-
 
 export default function(props) {
   const hasSubmit = not(isNil(props.onSubmit));

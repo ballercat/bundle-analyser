@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 
-export default class Progress extends Component {
-
-  render() {
-    return <span style={
+export default (props) => (
+  <span style={
       {
-        display: this.props.loading ? '' : 'none'
+        display: props.loading ? '' : 'none'
       }
     }>
       Loading...
-    </span>
-  }
-}
+  </span>
+)
 
