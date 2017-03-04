@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Form from './Form';
 import Progress from './Progress';
 import ModuleMap from './ModuleMap';
@@ -13,23 +14,22 @@ import {
   compose
 } from 'ramda';
 
-const konsole = fn => compose(fn, tap(console.log));
-
+// Pick source form
 const PickSource = connect(
-  konsole(state => ({
-    ...state.get('pick_source')
-  }))
+  state => ({...state.get('pick_source')}),
+  dispatch => bindActionCreators({onSubmit: fetchScript}, dispatch)
 )(Form);
+
+// Loading indicator
 const Loading = connect(
-  state => ({
-    ...state.get('progress')
-  })
+  state => ({...state.get('progress')})
 )(Progress);
 
-export default App = (props) => (
+export default (props) => (
   <div className="App">
-    <PickSource onSubmit={(form) => props.dispatch(fetchScript(form))} />
+    <PickSource />
     <Loading />
+
   </div>
 );
 

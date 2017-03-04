@@ -4,9 +4,13 @@
   "description": "Visualize JS bundles",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "babel-node ./jasmine.js",
     "start": "webpack-dev-server -d --hot --inline",
-    "watch:test": "nodemon -w ./spec -w ./src -e js -x npm test"
+    "watch:test": "nodemon -w ./spec -w ./src -w ./jasmine.js -w ./jasmine.json -e js -x npm test",
+    "debug:test": "babel-node --inspect --debug-brk ./jasmine.js --source-maps inline",
+    "build-debug-test": "babel jasmine.js --out-file ./testbuild.js --preset --source-maps inline",
+    "run-debug-test": "babel-node --inspect --debug-brk ./testbuild.js",
+    "watch:debug:test": "nodemon -w ./spec -w ./src -w /jasmine.js -w ./jasmine.json -w ./package.json -e js -x ./watch-debug-tests.sh"
   },
   "author": "Arthur Buldauskas",
   "license": "MIT",
@@ -18,7 +22,7 @@
     "babel-preset-react": "^6.23.0",
     "css-loader": "^0.26.1",
     "file-loader": "^0.10.0",
-    "jasmine-es6": "^0.4.0",
+    "jasmine": "^2.5.3",
     "node-sass": "^4.5.0",
     "react-hot-loader": "^1.3.1",
     "sass-loader": "^6.0.1",
@@ -27,6 +31,7 @@
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
+    "babel-cli": "^6.23.0",
     "d3": "^4.5.1",
     "immutable": "^3.8.1",
     "ramda": "^0.23.0",
