@@ -4,8 +4,9 @@
   "description": "Visualize JS bundles",
   "main": "index.js",
   "scripts": {
-    "test": "npm test",
-    "start": "webpack-dev-server -d --hot --inline"
+    "test": "jasmine",
+    "start": "webpack-dev-server -d --hot --inline",
+    "watch:test": "nodemon -w ./spec -w ./src -e js -x npm test"
   },
   "author": "Arthur Buldauskas",
   "license": "MIT",
