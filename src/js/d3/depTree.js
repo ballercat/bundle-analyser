@@ -35,6 +35,7 @@ export default (options) => {
     data,
   } = options;
 
+  const radius = d => Math.max(d.data.size, 1) * 2;
   const target = document.createElement('div');
 
   const svg = d3.select(target)
@@ -45,11 +46,11 @@ export default (options) => {
 
   const tree = d3.tree()
 		.size([width, height]);
-
 	var i = 0, duration = 750;
   const root = d3.hierarchy(parseData(data), d => d.children);
+  root.isRoot = true;
 	root.x0 = width/2;
-	root.y0 = height/2;;
+	root.y0 = radius(root) * 1.5;
 
   const build = (root) => {
 		root = tree(root);
@@ -59,8 +60,13 @@ export default (options) => {
 
     // Normalize for fixed-depth.
     nodes.forEach(d => {
-      d.y = 50 + (d.depth || 1) * (d.data.cid) * 20 * (d.data.size || 5);
+      if (!d.isRoot) {
+        d.y = 50 + d.depth * 20 * Math.max(d.data.size, d.data.cid || 1);
+      } else {
+        d.y = radius(d) * 2;
+      }
     });
+
 
     // Update the nodes…
     var node = svg.selectAll("g.node")
@@ -73,11 +79,11 @@ export default (options) => {
       .on("click", click);
 
     nodeEnter.append("circle")
-      //.attr("r", 1e-6)
+      .attr("r", radius)
       .style("fill", d => d._children ? "lightsteelblue" : "#fff");
 
     nodeEnter.append("text")
-      .attr("y", d => d.children || d._children ? -23 : 23)
+      .attr("y", d => d.children || d._children ? radius(d) * -1.4 : radius(d) + 10)
       .attr("dy", ".35em")
       .attr("text-anchor", d => d.children || d._children ? "end" : "start")
       .text(d => d.data.name)
@@ -91,7 +97,6 @@ export default (options) => {
       .attr("transform", d => `translate(${d.x}, ${d.y})`);
 
     nodeUpdate.select("circle")
-      .attr("r", d => (d.data.size || 1 * 2))
       .style("fill", d => d._children ? "lightsteelblue" : "#fff");
 
     nodeUpdate.select("text")
@@ -118,7 +123,7 @@ export default (options) => {
       .attr("class", "link")
       .attr("d", function(d) {
         var o = {x: root.x0, y: root.y0};
-        return diagonal(o, o);
+        return diagonal([o, o]);
       });
 
 		var linkUpdate = linkEnter.merge(link);
@@ -126,14 +131,14 @@ export default (options) => {
     // Transition links to their new position.
     linkUpdate.transition()
       .duration(duration)
-      .attr("d", d => diagonal(d.parent, d));
+      .attr("d", d => diagonal([d.parent, d]));
 
     // Transition exiting nodes to the parent's new position.
     var linkExit = link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
         var o = {x: root.x, y: root.y};
-        return diagonal(o, o);
+        return diagonal([o, o]);
       })
       .remove();
 
@@ -153,13 +158,10 @@ export default (options) => {
 		}
 	}
 
-	// Creates a curved (diagonal) path from parent to the child nodes
-	function diagonal(s, d) {
-		return `M ${s.x} ${s.y}
-		C ${(s.x + d.x) / 2} ${s.y},
-			${(s.x + d.x) / 2} ${d.y},
-			${d.x} ${d.y}`;
-	}
+  var diagonal = d3.line()
+    .x(d => d.x)
+    .y(d => d.y)
+    .curve(d3.curveStep);
 
   // Toggle children on click.
   function click(d) {
