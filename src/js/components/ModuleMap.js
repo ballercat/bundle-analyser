@@ -3,7 +3,13 @@ import ReactDOM from 'react-dom';
 import rd3 from 'react-d3-library';
 import buildBubblemap from '../d3/bubblemap';
 import { curry } from 'ramda';
+import logger from '../logger'
 import '../../scss/components/ModuleList';
+
+const {
+  log,
+  logBefore
+} = logger();
 
 export default class ModuleMap extends Component {
   constructor(props) {
@@ -29,7 +35,8 @@ export default class ModuleMap extends Component {
         data: nextProps.modules,
         width: el.offsetWidth,
         height: el.offsetHeight,
-        searchCallback
+        searchCallback,
+        clickHandler: log(this.props.onDetail)
       })
     });
   }
@@ -43,7 +50,8 @@ export default class ModuleMap extends Component {
         width: el.offsetWidth,
         height: el.offsetHeight,
         search: this.props.searchTerm,
-        searchCallback
+        searchCallback,
+        clickHandler: this.props.onDetail
       }),
       searchCallback
     });

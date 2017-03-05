@@ -28,7 +28,8 @@ const build = (options) => {
     width,
     height,
     data,
-    searchCallback
+    searchCallback,
+    clickHandler
   } = options;
 
   let target = document.createElement('div');
@@ -90,7 +91,7 @@ const build = (options) => {
   const node = svg.selectAll('.node')
     .data(pack(root).leaves())
     .enter().append('g')
-      .attr('class', 'node')
+      .attr('class', 'node Module')
       .attr('transform', (d) => `translate(${d.x}, ${d.y})`);
 
 
@@ -98,6 +99,7 @@ const build = (options) => {
     .attr('id', d => 'Module_' + d.data.name)
     .attr('r', d => d.r)
     .style('fill', d => color(d.id))
+    .on('click', clickHandler)
     .on('mouseover', highlightNode)
     .on('mouseout', function(d) {
       d3.select(this).transition().duration(100)

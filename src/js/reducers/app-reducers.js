@@ -2,6 +2,7 @@ import bundle, {
   MODULES_LOADED,
   loadBundle,
 } from './bundle-reducer';
+import detail from './module-reducer';
 import {
   Map,
   List,
@@ -37,6 +38,7 @@ export const fetchScript = form => dispatch => {
 export default {
   pick_source: pickSource,
   progress,
-  bundle
+  bundle,
+  detail
 };
 

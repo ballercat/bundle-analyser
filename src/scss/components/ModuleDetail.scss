@@ -1,0 +1,50 @@
+.ModuleDetail {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(100, 100, 100, 0.9);
+  position: absolute;
+  top: 0;
+  left: 0;
+  &-content {
+    margin: 1% auto;
+    background-color: white;
+    height: 95vh;
+    width: 95vw;
+    padding: 20px;
+  }
+  &-close {
+    color: #aaa;
+    float: right;
+    text-decoration: none;
+    cursor: pointer;
+    font-sizes: 28px;
+    font-weight: bold;
+    &::after {
+      content: '✖';
+    }
+  }
+}
+.tree {
+ height: 90vh;
+ width: 90vw;
+ overflow-x: scroll;
+ margin: auto;
+ padding: 0;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
