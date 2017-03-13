@@ -72,17 +72,17 @@ const hierarchy = (data, width) => Object.assign(
     y0: radius(data) * 1.5
   }
 );
-const diagonal = d3.line().x(d => d.x).y(d => d.y); // .curve(d3.curveStep);
+const diagonal = d3.line().x(d => d.x).y(d => d.y).curve(d3.curveStep);; // .curve(d3.curveStep);
 
 const mapIds = addIndex((d, i) => d.id || i);
 const normalizeDepth = d => {
   if (!d.isRoot) {
-    d.y = 50 + d.depth * 150 + (((d.data || d).size || 10) * 10);
+    d.y = 50 + d.depth * 150; // + (((d.data || d).size || 10) * 10);
   } else {
-    d.y = radius(d) * 2;
+    d.y = radius(d) * 2 + 50;
   }
 };
-const nodeTransform = curry((root, d) => d.parent ? `translate(${d.parent.x}, ${d.parent.y})` : `translate(${root.x0}, ${root.y0})`);
+const nodeTransform = curry((root, d) => d.parent ? `translate(${d.parent.x}, ${d.parent.y})` : `translate(${root.x}, ${root.y})`);
 
 export default (options) => {
   const {
@@ -167,7 +167,7 @@ export default (options) => {
       .attr("class", "link")
       .attr('d', d => d.parent ?
         diagonal([d.parent, d.parent]) :
-        diagonal([{x: root.x0, y: root.y0}, {x: root.x0, y: root.y0}]));
+        diagonal([{x: root.x, y: root.y}, {x: root.x, y: root.y}]));
 
 		var linkUpdate = linkEnter.merge(link);
 
@@ -182,11 +182,6 @@ export default (options) => {
       .attr("d", (d) => d.parent ? diagonal([d.parent, d.parent]) : diagonal([root, root]))
       .remove();
 
-    // Stash the old positions for transition.
-    nodes.forEach(function(d) {
-      d.x0 = d.x;
-      d.y0 = d.y;
-    });
   };
 
 	build(data);
