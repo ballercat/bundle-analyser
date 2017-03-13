@@ -7,11 +7,9 @@ import appReducers from './reducers/app-reducers';
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { connect, Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import browse from '../browse';
 import Immutable from 'immutable';
 
 window.Immutable = Immutable;
-window.browse = browse;
 
 const rootEl = document.querySelector('#app');
 
