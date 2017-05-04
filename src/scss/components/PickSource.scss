@@ -1,11 +1,9 @@
 // Sass
 
 .PickSource {
-
-  margin: 10px;
   max-width: 50vw;
   // padding: 20px 12px 10px 20px;
-  font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font: 13px "consolas Lucida Sans Unicode", "Lucida Grande", sans-serif;
 
   input[type=text],
   input[type=date],
@@ -22,7 +20,7 @@
     -moz-box-sizing: border-box;
     border:1px solid #BEBEBE;
     padding: 7px;
-    margin:0px;
+    margin:5px;
     -webkit-transition: all 0.30s ease-in-out;
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;
@@ -45,6 +43,10 @@
     border: 1px solid #88D5E9;
   }
 
+  ul {
+    -webkit-padding-start: 0px;
+  }
+
   &-divided{
     width: 49%;
   }
@@ -61,22 +63,24 @@
     height: 100px;
   }
 
-  input[type=submit],
-  input[type=button]{
+  .required{
+    color:red;
+  }
+
+  &-submit {
+    cursor: pointer;
     background: #4B99AD;
     padding: 8px 15px 8px 15px;
     border: none;
     color: #fff;
   }
-  input[type=submit]:hover,
-  input[type=button]:hover{
+
+  &-submit:hover {
+    cursor: pointer;
     background: #4691A4;
     box-shadow:none;
     -moz-box-shadow:none;
     -webkit-box-shadow:none;
-  }
-  .required{
-    color:red;
   }
 
   &-group {
