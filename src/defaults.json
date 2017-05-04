@@ -9,11 +9,6 @@
             "type": "text-input",
             "name": "source",
             "placeholder": "Source"
-          },
-          {
-            "type": "text-input",
-            "name": "entry",
-            "placeholder": "Entry point (optional)"
           }
         ]
       },
