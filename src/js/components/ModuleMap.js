@@ -36,9 +36,9 @@ export default class ModuleMap extends Component {
         width: el.offsetWidth,
         height: el.offsetHeight,
         searchCallback,
-        clickHandler: log(this.props.onDetail),
-        hoverHandler: log(this.props.onHover),
-        hoverOutHandler: log(this.props.onHoverOut)
+        clickHandler: this.props.onDetail,
+        hoverHandler: this.props.onHover,
+        hoverOutHandler: this.props.onHoverOut
       })
     });
   }
