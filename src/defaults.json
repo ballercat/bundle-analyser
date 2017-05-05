@@ -3,12 +3,11 @@
     "inputs": [
       {
         "type": "group",
-        "label": "Pick a Source to analyse",
         "inputs": [
           {
             "type": "text-input",
             "name": "source",
-            "placeholder": "Source"
+            "placeholder": "Paste a bundler link here to analyse"
           }
         ]
       },

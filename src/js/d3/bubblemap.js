@@ -57,6 +57,7 @@ const build = (options) => {
   const highlightNode = function(d) {
     const name = d.data.name;
     const refs = d.data.refs;
+    const deps = d.data.deps;
 
     d3.selectAll('circle')
       .transition().duration(0).attr('stroke', 1).attr('fill-opacity', 1.0)

@@ -56,4 +56,3 @@ export default (props) => (
     { props.detail.data ? <Detail /> : null }
   </div>
 );
-

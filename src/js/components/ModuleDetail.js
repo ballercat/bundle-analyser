@@ -4,23 +4,33 @@ import buildTree from '../d3/depTree';
 import '../../scss/components/ModuleDetail';
 
 export default class Detail extends Component {
-	componentDidMount() {
-		const container = findDOMNode(this);
-    const target = container.querySelector('.tree');
-    const tree = buildTree({
-      width: target.offsetWidth,
-      height: target.offsetHeight,
-      data: this.props.data
-    });
-    target.appendChild(tree);
-	}
+  constructor() {
+    super();
+    this.getListItems = this.getListItems.bind(this);
+  }
+
+  getListItems(items) { 
+    return items.map(item => <li>{item}</li>);
+  }
 
   render() {
+    const refsList = this.getListItems(this.props.data.refs);
+    var depsNames = this.props.data.deps.map(function(a) {return a.name;});
+    const depsList = this.getListItems(depsNames);
     return(
       <div className="ModuleDetail" style={ {display: this.props.data ? null : 'none'} }>
         <div className="ModuleDetail-content">
           <span className="ModuleDetail-close" onClick={this.props.onClose}></span>
-          <div className="tree"></div>
+          <p>Name of module selected: {this.props.data.name}</p>
+          <p>Size of module: {this.props.data.size}kb</p>
+          <p>Modules using this module:</p>
+          <ul>
+            {refsList}
+          </ul>
+          <p>Module dependencies:</p>
+          <ul>
+            {depsList}
+          </ul>
         </div>
       </div>
     );
