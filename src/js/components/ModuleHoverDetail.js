@@ -9,7 +9,7 @@ export default class ModuleHoverDetail extends Component {
             <li className="ModuleHoverDetail-ListItem ModuleHoverDetail-LeftPane">Module Name</li>
             <li className="ModuleHoverDetail-ListItem">{data.name}</li>
             <li className="ModuleHoverDetail-ListItem ModuleHoverDetail-LeftPane">Size</li>
-            <li className="ModuleHoverDetail-ListItem">{data.size}kb</li>
+            <li className="ModuleHoverDetail-ListItem">{data.size} KB</li>
             <li className="ModuleHoverDetail-ListItem ModuleHoverDetail-LeftPane">Number of dependencies</li>
             <li className="ModuleHoverDetail-ListItem">{data.deps.length}</li>
             <li className="ModuleHoverDetail-ListItem ModuleHoverDetail-LeftPane">Number of references</li>
