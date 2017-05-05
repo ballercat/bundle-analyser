@@ -76,6 +76,8 @@ const build = (options) => {
     d3.select(this).transition().duration(200)
       .attr('stroke', 'black')
       .attr('stroke-width', 3);
+
+      hoverHandler();
   };
 
   const root = d3.hierarchy(noRoot)
@@ -103,18 +105,19 @@ const build = (options) => {
     .attr('r', d => d.r)
     .style('fill', d => color(d.id))
     .on('click', clickHandler)
-    .on('mouseover', hoverHandler)
-    .on('mouseout', hoverOutHandler)
-    // .on('mouseout', function(d) {
-    //   d3.select(this).transition().duration(100)
-    //     .attr('stroke', 1);
+    .on('mouseover', highlightNode)
+    .on('mouseout', function(d) {
+      d3.select(this).transition().duration(100)
+        .attr('stroke', 1);
 
-    //   const name = d.data.name;
-    //   d3.selectAll('circle')
-    //     .filter((d) => d.data.deps.indexOf(name) < 0)
-    //     .transition().duration(100)
-    //     .attr('fill-opacity', 1);
-    // });
+      const name = d.data.name;
+      d3.selectAll('circle')
+        .filter((d) => d.data.deps.indexOf(name) < 0)
+        .transition().duration(100)
+        .attr('fill-opacity', 1);
+
+        hoverOutHandler();
+    });
 
 
   node.append('clipPath')
