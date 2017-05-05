@@ -5,11 +5,16 @@ import Form from './Form';
 import Progress from './Progress';
 import ModuleMap from './ModuleMap';
 import ModuleDetail from './ModuleDetail';
+import ModuleHoverDetail from  './ModuleHoverDetail';
 import { fetchScript } from '../reducers/app-reducers';
 import {
   detailModule,
   dismissDetail
 } from '../reducers/module-reducer';
+import {
+  hoverModule,
+  hoverOut
+} from '../reducers/hover-module-reducer';
 import {
   has,
   map,
@@ -37,7 +42,9 @@ const Bundle = connect(
     modules: state.bundle.get('modules')
   }),
   dispatch => bindActionCreators({
-    onDetail: detailModule
+    onDetail: detailModule,
+    onHover: hoverModule,
+    onHoverOut: hoverOut
   }, dispatch)
 )(ModuleMap);
 
@@ -48,11 +55,18 @@ const Detail = connect(
   }, dispatch)
 )(ModuleDetail);
 
+const HoverDetail = connect(
+  state => ({...state.hover_detail})
+)(ModuleHoverDetail);
+
 export default (props) => (
   <div className="App">
     <PickSource />
     <Loading />
-    <Bundle />
+    <div>
+      <Bundle />
+      <HoverDetail />
+    </div>
     { props.detail.data ? <Detail /> : null }
   </div>
 );

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import buildTree from '../d3/depTree';
 import '../../scss/components/ModuleDetail';
 
 export default class Detail extends Component {

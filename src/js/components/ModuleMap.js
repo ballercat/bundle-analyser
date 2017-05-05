@@ -36,7 +36,9 @@ export default class ModuleMap extends Component {
         width: el.offsetWidth,
         height: el.offsetHeight,
         searchCallback,
-        clickHandler: log(this.props.onDetail)
+        clickHandler: log(this.props.onDetail),
+        hoverHandler: log(this.props.onHover),
+        hoverOutHandler: log(this.props.onHoverOut)
       })
     });
   }
@@ -51,7 +53,9 @@ export default class ModuleMap extends Component {
         height: el.offsetHeight,
         search: this.props.searchTerm,
         searchCallback,
-        clickHandler: this.props.onDetail
+        clickHandler: this.props.onDetail,
+        hoverHandler: this.props.onHover,
+        hoverOutHandler: this.props.onHoverOut
       }),
       searchCallback
     });
