@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../../scss/components/Progress';
 
 export default (props) => (
   <span style={
@@ -6,7 +7,6 @@ export default (props) => (
         display: props.loading ? '' : 'none'
       }
     }>
-      Loading...
+     <div className="loader"></div>
   </span>
 )
-
