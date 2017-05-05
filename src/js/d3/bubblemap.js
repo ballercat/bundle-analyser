@@ -71,13 +71,13 @@ const build = (options) => {
       })
       .transition().duration(100)
       .attr('stroke', 1)
-      .attr('fill-opacity', 0.1);
+      .attr('fill-opacity', 0);
 
     d3.select(this).transition().duration(200)
       .attr('stroke', 'black')
       .attr('stroke-width', 3);
 
-      hoverHandler();
+      hoverHandler(d);
   };
 
   const root = d3.hierarchy(noRoot)
