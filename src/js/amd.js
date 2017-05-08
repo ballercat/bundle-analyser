@@ -8,6 +8,7 @@ export const define = function (name, deps, body, ref) {
     deps: [],
     body: '',
     size: 0,
+    size_including_deps: 0,
     refs: []
   };
   if (deps) {
@@ -17,13 +18,13 @@ export const define = function (name, deps, body, ref) {
     if (body.length !== module.body.length) {
       module.body = body;
       module.size = Math.ceil(body.toString().length / 1024);
+      module.size_including_deps = module.deps.reduce((acc, m) => {return acc + m.size; }, module.size);
     }
   }
 
   if (ref) {
     module.refs.push(ref);
   }
-
   return modules[name] = module;
 };
 

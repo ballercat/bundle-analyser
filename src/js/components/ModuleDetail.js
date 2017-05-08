@@ -19,10 +19,6 @@ export default class Detail extends Component {
            </ul>;
   }
 
-  getTotalModuleSize(items) {
-     return items.reduce((acc, item) => {return acc + item.size}, 0) 
-  }
-
   render() {
     const refsList = this.getRefsList(this.props.data.refs);
     const depsList = this.getDepsList(this.props.data.deps);
@@ -36,7 +32,7 @@ export default class Detail extends Component {
             <li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Module Size</li>
             <li className="ModuleDetail-ListItem">{this.props.data.size}kb</li>
             <li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Module Size with dependencies</li>
-            <li className="ModuleDetail-ListItem">{this.props.data.size + this.getTotalModuleSize(this.props.data.deps)} KB</li>
+            <li className="ModuleDetail-ListItem">{this.props.data.size_including_deps} KB</li>
             <li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Modules using this module</li>
             <li className="ModuleDetail-ListItem">{refsList}</li>
             <li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Modules used by this module</li>
