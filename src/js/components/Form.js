@@ -18,8 +18,6 @@ import {
 } from 'ramda';
 import '../../scss/components/PickSource';
 
-const log = tap(console.log);
-
 const toInput = curry(
     (InputComponent, options) => merge(
       options,
@@ -32,7 +30,6 @@ const toInput = curry(
 // A group of inputs
 const Group = (props) => (
   <li className="PickSource-group">
-    <label>{props.label}</label>
     {props.inputs ? mapToFormInputs(props.inputs) : null}
   </li>
 );

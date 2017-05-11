@@ -36,24 +36,10 @@ export default class ModuleMap extends Component {
         width: el.offsetWidth,
         height: el.offsetHeight,
         searchCallback,
-        clickHandler: log(this.props.onDetail)
+        clickHandler: this.props.onDetail,
+        hoverHandler: this.props.onHover,
+        hoverOutHandler: this.props.onHoverOut
       })
-    });
-  }
-
-  componentDidMount() {
-    const el = ReactDOM.findDOMNode(this);
-    const searchCallback = curry((cb, options) => cb(options));
-    this.setState({
-      d3: buildBubblemap({
-        data: this.props.modules,
-        width: el.offsetWidth,
-        height: el.offsetHeight,
-        search: this.props.searchTerm,
-        searchCallback,
-        clickHandler: this.props.onDetail
-      }),
-      searchCallback
     });
   }
 

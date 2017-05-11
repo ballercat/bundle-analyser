@@ -1,0 +1,20 @@
+.ModuleHoverDetail {
+  &-List {
+    font: 13px "consolas Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    width:100%;
+    margin-bottom:20px;
+    overflow:hidden;
+  }
+  &-ListItem {
+    line-height:1.5em;
+    padding: 1%;
+    border-bottom:1px solid #ccc;
+    float:left;
+    width: 50%;
+    list-style: none
+  }
+  &-LeftPane {
+    background-color: hsla(31,15%,50%,.1);
+    width: 30%;
+  }
+}

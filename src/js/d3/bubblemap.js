@@ -29,7 +29,9 @@ const build = (options) => {
     height,
     data,
     searchCallback,
-    clickHandler
+    clickHandler,
+    hoverHandler,
+    hoverOutHandler
   } = options;
 
   let target = document.createElement('div');
@@ -68,11 +70,13 @@ const build = (options) => {
       })
       .transition().duration(100)
       .attr('stroke', 1)
-      .attr('fill-opacity', 0.1);
+      .attr('fill-opacity', 0.05);
 
     d3.select(this).transition().duration(200)
       .attr('stroke', 'black')
       .attr('stroke-width', 3);
+
+      hoverHandler(d);
   };
 
   const root = d3.hierarchy(noRoot)
@@ -94,7 +98,6 @@ const build = (options) => {
       .attr('class', 'node Module')
       .attr('transform', (d) => `translate(${d.x}, ${d.y})`);
 
-
   node.append('circle')
     .attr('id', d => 'Module_' + d.data.name)
     .attr('r', d => d.r)
@@ -104,12 +107,13 @@ const build = (options) => {
     .on('mouseout', function(d) {
       d3.select(this).transition().duration(100)
         .attr('stroke', 1);
-
       const name = d.data.name;
       d3.selectAll('circle')
         .filter((d) => d.data.deps.indexOf(name) < 0)
         .transition().duration(100)
         .attr('fill-opacity', 1);
+
+        hoverOutHandler();
     });
 
 

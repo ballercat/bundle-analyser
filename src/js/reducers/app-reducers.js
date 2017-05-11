@@ -3,6 +3,7 @@ import bundle, {
   loadBundle,
 } from './bundle-reducer';
 import detail from './module-reducer';
+import hoverDetail from './hover-module-reducer';
 import {
   Map,
   List,
@@ -39,6 +40,7 @@ export default {
   pick_source: pickSource,
   progress,
   bundle,
-  detail
+  detail,
+  hover_detail: hoverDetail
 };
 

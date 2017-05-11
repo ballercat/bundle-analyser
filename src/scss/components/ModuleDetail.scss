@@ -17,36 +17,29 @@
     float: right;
     text-decoration: none;
     cursor: pointer;
-    font-sizes: 28px;
+    font-size: 28px;
     font-weight: bold;
     &::after {
       content: '✖';
     }
   }
-}
-.tree {
- height: 90vh;
- width: 90vw;
- overflow: hidden;
- overflow-x: scroll;
- overflow-y: scroll;
- margin: auto;
- padding: 0;
-}
 
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 3px;
+  &-List {
+    font: 13px "consolas Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    width:100%;
+    margin-bottom:20px;
+    overflow:hidden;
+  }
+  &-ListItem {
+    line-height:1.5em;
+    padding: 1%;
+    border-bottom:1px solid #ccc;
+    float:left;
+    width: 50%;
+    list-style: none
+  }
+  &-LeftPane {
+    background-color: hsla(31,15%,50%,.1);
+    width: 30%;
+  }
 }
-
-.node text {
-  font: 12px sans-serif;
-}
-
-.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 2px;
-}
-
