@@ -6,7 +6,7 @@ export default class Detail extends Component {
   getRefsList(items) {
     return <ul className="ModuleDetail-List"> 
             {
-              items.map(item => <li className="ModuleDetail-ListItem">{item}</li>)
+              items.map((item, index) => <li className="ModuleDetail-ListItem" key={index}>{item}</li>)
             } 
            </ul>;
   }
@@ -14,8 +14,8 @@ export default class Detail extends Component {
   getDepsList(items) {
     return <ul className="ModuleDetail-List"> 
             {
-              items.map(item => <li className="ModuleDetail-ListItem">{item.name} - {item.size} KB</li>)
-            } 
+              items.map((item, index) => <li className="ModuleDetail-ListItem" key={index}>{item.name} - {item.size} KB</li>)
+            }
            </ul>;
   }
 
