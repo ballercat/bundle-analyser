@@ -28,8 +28,8 @@
 
 #explanation {
   position: absolute;
-  top: 285px;
-  left: 335px;
+  top: 125px;
+  left: 80px;
   width: 140px;
   text-align: center;
   color: #666;
@@ -42,15 +42,14 @@
 .ModuleDetail {
   height: 100%;
   width: 100%;
-  background-color: rgba(100, 100, 100, 0.9);
+  background-color: white;
   position: absolute;
   top: 0;
   left: 0;
   &-content {
-    margin: 1% auto;
     background-color: white;
-    height: 95vh;
-    width: 95vw;
+    height: 100%;
+    width: 98%;
     padding: 20px;
   }
   &-close {

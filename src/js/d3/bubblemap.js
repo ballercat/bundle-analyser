@@ -63,7 +63,7 @@ const build = (options) => {
     d3.selectAll('circle')
       .transition().duration(0).attr('stroke', 1).attr('fill-opacity', 1.0)
       .filter((d) => {
-        if (name === d.data.name) {
+        if (!d || !d.data || name === d.data.name) {
           return false;
         }
         return !R.contains(d.data.name, refs);

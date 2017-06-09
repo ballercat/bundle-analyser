@@ -14,8 +14,8 @@ constructor() {
 componentDidMount() {
   // Hardcore hardcode
     sunburst({
-      width: 800,
-      height: 600,
+      width: window.innerWidth - 200,
+      height: window.innerHeight - 200,
       data: this.data
     });
 	}
@@ -80,9 +80,10 @@ componentDidMount() {
             <li className="ModuleDetail-ListItem">{this.props.data.name}</li>
             <li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Module Size</li>
             <li className="ModuleDetail-ListItem">{this.props.data.size}kb</li>
-            {/*<li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Modules using this module</li>
-            <li className="ModuleDetail-ListItem">{refsList}</li>*/}
+            <li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Modules using this module</li>
+            <li className="ModuleDetail-ListItem">{refsList}</li>
             <div id="main">
+              <li className="ModuleDetail-ListItem ModuleDetail-LeftPane">Dependency chart for this module</li>
               <div id="sequence"></div>
               <div id="chart">
                 <div id="explanation">
