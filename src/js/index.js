@@ -34,4 +34,3 @@ render(
   </Provider>,
   rootEl
 );
-

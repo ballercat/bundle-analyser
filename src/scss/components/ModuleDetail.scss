@@ -1,3 +1,44 @@
+#main {
+  float: left;
+  width: 750px;
+}
+
+#sidebar {
+  float: right;
+  width: 100px;
+}
+
+#sequence {
+  width: 600px;
+  height: 70px;
+}
+
+#sequence text, #legend text {
+  font-weight: 600;
+  fill: #fff;
+}
+
+#chart {
+  position: relative;
+}
+
+#chart path {
+  stroke: #fff;
+}
+
+#explanation {
+  position: absolute;
+  top: 285px;
+  left: 335px;
+  width: 140px;
+  text-align: center;
+  color: #666;
+}
+
+#sizeOfModule {
+  font-size: 1.5em;
+}
+
 .ModuleDetail {
   height: 100%;
   width: 100%;

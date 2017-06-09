@@ -12,5 +12,3 @@ export default (state = Map({ modules: [] }), action) => {
     default: return state;
   };
 };
-
-

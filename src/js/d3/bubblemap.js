@@ -105,11 +105,14 @@ const build = (options) => {
     .on('click', clickHandler)
     .on('mouseover', highlightNode)
     .on('mouseout', function(d) {
+      if(!d.data) {
+        return;
+      }
       d3.select(this).transition().duration(100)
         .attr('stroke', 1);
       const name = d.data.name;
       d3.selectAll('circle')
-        .filter((d) => d.data.deps.indexOf(name) < 0)
+        .filter((d) => { if(!d || !d.data) {return}; return d.data.deps.indexOf(name) < 0})
         .transition().duration(100)
         .attr('fill-opacity', 1);
 
