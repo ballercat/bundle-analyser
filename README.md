@@ -1,3 +1,3 @@
-* `git clone git@git.csnzoo.com:hreddy/bundle_analyser.git`
+* `git clone https://github.com/ballercat/bundle-analyser.git`
 * `npm install`
 * `npm start`
